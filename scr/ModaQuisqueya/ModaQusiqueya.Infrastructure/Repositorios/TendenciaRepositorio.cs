@@ -26,7 +26,7 @@ namespace ModaQuisqueya.Infrastructure.Repositorios
             {
                 Id = t.Id,
                 Nombre = t.Nombre,
-                Descripción = t.Descripción,
+                Descripcion = t.Descripcion,
                 Temporada = t.Temporada
             }).ToList();
         }
@@ -40,7 +40,7 @@ namespace ModaQuisqueya.Infrastructure.Repositorios
             {
                 Id = tendencia.Id,
                 Nombre = tendencia.Nombre,
-                Descripción = tendencia.Descripción,
+                Descripcion = tendencia.Descripcion,
                 Temporada = tendencia.Temporada
             };
         }
@@ -50,7 +50,7 @@ namespace ModaQuisqueya.Infrastructure.Repositorios
             var tendencia = new Tendencia
             {
                 Nombre = tendenciaModel.Nombre,
-                Descripción = tendenciaModel.Descripción,
+                Descripcion = tendenciaModel.Descripcion,
                 Temporada = tendenciaModel.Temporada
             };
 
@@ -64,7 +64,7 @@ namespace ModaQuisqueya.Infrastructure.Repositorios
             if (tendencia != null)
             {
                 tendencia.Nombre = tendenciaModel.Nombre;
-                tendencia.Descripción = tendenciaModel.Descripción;
+                tendencia.Descripcion = tendenciaModel.Descripcion;
                 tendencia.Temporada = tendenciaModel.Temporada;
 
                 _context.Tendencias.Update(tendencia);

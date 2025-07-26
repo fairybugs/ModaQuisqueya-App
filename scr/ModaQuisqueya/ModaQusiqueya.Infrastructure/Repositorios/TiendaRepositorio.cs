@@ -25,8 +25,8 @@ namespace ModaQuisqueya.Infrastructure.Repositorios
             {
                 Id = t.Id,
                 Nombre = t.Nombre,
-                Dirección = t.Dirección,
-                Teléfono = t.Teléfono,
+                Dirección = t.Direccion,
+                Telefono = t.Telefono,
                 SitioWeb = t.SitioWeb
             }).ToList();
         }
@@ -40,8 +40,8 @@ namespace ModaQuisqueya.Infrastructure.Repositorios
             {
                 Id = tienda.Id,
                 Nombre = tienda.Nombre,
-                Dirección = tienda.Dirección,
-                Teléfono = tienda.Teléfono,
+                Dirección = tienda.Direccion,
+                Telefono = tienda.Telefono,
                 SitioWeb = tienda.SitioWeb
             };
         }
@@ -51,8 +51,8 @@ namespace ModaQuisqueya.Infrastructure.Repositorios
             var tienda = new Tienda
             {
                 Nombre = tiendaModel.Nombre,
-                Dirección = tiendaModel.Dirección,
-                Teléfono = tiendaModel.Teléfono,
+                Direccion = tiendaModel.Dirección,
+                Telefono = tiendaModel.Telefono,
                 SitioWeb = tiendaModel.SitioWeb
             };
 
@@ -66,8 +66,8 @@ namespace ModaQuisqueya.Infrastructure.Repositorios
             if (tienda != null)
             {
                 tienda.Nombre = tiendaModel.Nombre;
-                tienda.Dirección = tiendaModel.Dirección;
-                tienda.Teléfono = tiendaModel.Teléfono;
+                tienda.Direccion = tiendaModel.Dirección;
+                tienda.Telefono = tiendaModel.Telefono;
                 tienda.SitioWeb = tiendaModel.SitioWeb;
 
                 _context.Tiendas.Update(tienda);

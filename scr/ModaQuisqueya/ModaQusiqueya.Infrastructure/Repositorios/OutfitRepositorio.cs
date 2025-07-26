@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ModaQuisqueya.Api.Data;
 using ModaQuisqueya.Domain.Entities;
-using ModaQuisqueya.Infrastructure.Entities;
 using ModaQuisqueya.Infrastructure.Interfaces;
 using ModaQuisqueya.Infrastructure.Modelos;
 using ModaQusiqueya.Infrastructure.Modelos;
@@ -27,7 +26,7 @@ namespace ModaQuisqueya.Infrastructure.Repositorios
             {
                 Id = o.Id,
                 Nombre = o.Nombre,
-                Descripción = o.Descripción,
+                Descripcion = o.Descripcion,
                 ImagenUrl = o.ImagenUrl
             }).ToList();
         }
@@ -41,7 +40,7 @@ namespace ModaQuisqueya.Infrastructure.Repositorios
             {
                 Id = outfit.Id,
                 Nombre = outfit.Nombre,
-                Descripción = outfit.Descripción,
+                Descripcion = outfit.Descripcion,
                 ImagenUrl = outfit.ImagenUrl
             };
         }
@@ -51,7 +50,7 @@ namespace ModaQuisqueya.Infrastructure.Repositorios
             var outfit = new Outfit
             {
                 Nombre = outfitModel.Nombre,
-                Descripción = outfitModel.Descripción,
+                Descripcion = outfitModel.Descripcion,
                 ImagenUrl = outfitModel.ImagenUrl
             };
 
@@ -65,7 +64,7 @@ namespace ModaQuisqueya.Infrastructure.Repositorios
             if (outfit != null)
             {
                 outfit.Nombre = outfitModel.Nombre;
-                outfit.Descripción = outfitModel.Descripción;
+                outfit.Descripcion = outfitModel.Descripcion;
                 outfit.ImagenUrl = outfitModel.ImagenUrl;
 
                 _context.Outfits.Update(outfit);

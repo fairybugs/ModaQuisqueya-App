@@ -3,6 +3,9 @@ using ModaQuisqueya.Api.Data;
 using ModaQuisqueya.Domain.Entities;
 using ModaQuisqueya.Infrastructure.Interfaces;
 using ModaQuisqueya.Infrastructure.Modelos;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ModaQuisqueya.Infrastructure.Repositorios
 {
@@ -22,7 +25,9 @@ namespace ModaQuisqueya.Infrastructure.Repositorios
             {
                 Id = d.Id,
                 Nombre = d.Nombre,
-                Especialidad = d.Especialidad
+                Especialidad = d.Especialidad,
+                Biografia = d.Biografia,
+                FotoUrl = d.FotoUrl,
             }).ToList();
         }
 
@@ -36,7 +41,9 @@ namespace ModaQuisqueya.Infrastructure.Repositorios
             {
                 Id = diseñador.Id,
                 Nombre = diseñador.Nombre,
-                Especialidad = diseñador.Especialidad
+                Especialidad = diseñador.Especialidad,
+                Biografia = diseñador.Biografia,
+                FotoUrl = diseñador.FotoUrl
             };
         }
 
@@ -45,7 +52,9 @@ namespace ModaQuisqueya.Infrastructure.Repositorios
             var diseñador = new Diseñador
             {
                 Nombre = diseñadorModel.Nombre,
-                Especialidad = diseñadorModel.Especialidad
+                Especialidad = diseñadorModel.Especialidad,
+                Biografia = diseñadorModel.Biografia,
+                FotoUrl = diseñadorModel.FotoUrl
             };
 
             _context.Diseñadores.Add(diseñador);
@@ -59,6 +68,8 @@ namespace ModaQuisqueya.Infrastructure.Repositorios
             {
                 diseñador.Nombre = diseñadorModel.Nombre;
                 diseñador.Especialidad = diseñadorModel.Especialidad;
+                diseñador.Biografia = diseñadorModel.Biografia;
+                diseñador.FotoUrl = diseñadorModel.FotoUrl;
 
                 _context.Diseñadores.Update(diseñador);
                 await _context.SaveChangesAsync();
