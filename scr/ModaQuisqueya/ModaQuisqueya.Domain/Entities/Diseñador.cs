@@ -1,4 +1,6 @@
-﻿namespace ModaQuisqueya.Domain.Entities
+using ModaQuisqueya.Infrastructure.Modelos;
+
+namespace ModaQuisqueya.Domain.Entities
 {
     public class Diseñador
     {
