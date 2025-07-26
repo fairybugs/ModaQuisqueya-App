@@ -9,10 +9,6 @@ namespace ModaQuisqueya.Infrastructure.Entities
         public string Descripcion { get; set; } = null!;
         public string Ocasion { get; set; } = null!;
         public string ImagenUrl { get; set; } = null!;
-
-        // Relación con Diseñador
-        public int DisenadorId { get; set; }
-        public Diseñador? Disenador { get; set; }
     }
 }
 

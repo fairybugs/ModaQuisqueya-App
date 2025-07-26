@@ -8,6 +8,5 @@ namespace ModaQuisqueya.Domain.Entities
         public string Especialidad { get; set; } = null!;
         public string Biografía { get; set; } = null!;
         public string FotoUrl { get; set; } = null!;
-
     }
 }
