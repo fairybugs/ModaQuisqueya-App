@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ModaQusiqueya.Infrastructure.Modelos
+﻿namespace ModaQuisqueya.Application.DTOs
 {
-    public class OutfitModel
+    public class OutfitDto
     {
         public int Id { get; set; }
         public string Nombre { get; set; } = null!;

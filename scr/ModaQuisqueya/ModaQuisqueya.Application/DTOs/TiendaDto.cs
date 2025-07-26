@@ -1,8 +1,6 @@
-﻿using ModaQuisqueya.Domain.Entities;
-
-namespace ModaQuisqueya.Domain.Entities
+﻿namespace ModaQuisqueya.Application.DTOs
 {
-    public class Tienda
+    public class TiendaDto
     {
         public int Id { get; set; }
         public string Nombre { get; set; } = null!;

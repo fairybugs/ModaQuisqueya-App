@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ModaQuisqueya.Domain.Entities;
-using ModaQuisqueya.Infrastructure.Modelos;
+using ModaQuisqueya.Infrastructure.Entities;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,6 +17,7 @@ namespace ModaQuisqueya.Api.Data
         public DbSet<Tienda> Tiendas { get; set; }
         public DbSet<Tendencia> Tendencias { get; set; }
         public DbSet<Outfit> Outfits { get; set; }
+
     }
 }
 

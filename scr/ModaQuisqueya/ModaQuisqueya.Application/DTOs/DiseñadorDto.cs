@@ -1,14 +1,11 @@
-﻿using ModaQuisqueya.Domain.Entities;
-
-namespace ModaQuisqueya.Domain.Entities
+﻿namespace ModaQuisqueya.Application.DTOs
 {
-    public class Diseñador
+    public class DiseñadorDto
     {
         public int Id { get; set; }
         public string Nombre { get; set; } = null!;
         public string Especialidad { get; set; } = null!;
         public string Biografía { get; set; } = null!;
         public string FotoUrl { get; set; } = null!;
-
     }
 }
