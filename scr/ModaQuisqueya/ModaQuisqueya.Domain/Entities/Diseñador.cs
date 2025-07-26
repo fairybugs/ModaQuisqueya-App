@@ -9,8 +9,5 @@ namespace ModaQuisqueya.Domain.Entities
         public string Especialidad { get; set; } = null!;
         public string Biografia { get; set; } = null!;
         public string FotoUrl { get; set; } = null!;
-
-        // Relaciones
-        public ICollection<Outfit>? Outfits { get; set; }
     }
 }
