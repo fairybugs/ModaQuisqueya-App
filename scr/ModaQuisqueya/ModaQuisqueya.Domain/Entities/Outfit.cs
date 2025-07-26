@@ -1,6 +1,6 @@
 using ModaQuisqueya.Domain.Entities;
 
-namespace ModaQuisqueya.Infrastructure.Modelos
+namespace ModaQuisqueya.Infrastructure.Entities
 {
     public class Outfit
     {

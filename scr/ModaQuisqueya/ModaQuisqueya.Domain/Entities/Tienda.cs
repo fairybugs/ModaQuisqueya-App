@@ -1,4 +1,6 @@
-﻿namespace ModaQuisqueya.Domain.Entities
+﻿using ModaQuisqueya.Domain.Entities;
+
+namespace ModaQuisqueya.Domain.Entities
 {
     public class Tienda
     {

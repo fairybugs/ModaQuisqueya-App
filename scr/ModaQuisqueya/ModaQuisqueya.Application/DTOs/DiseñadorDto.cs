@@ -1,7 +1,6 @@
-
-namespace ModaQuisqueya.Domain.Entities
+﻿namespace ModaQuisqueya.Application.DTOs
 {
-    public class Diseñador
+    public class DiseñadorDto
     {
         public int Id { get; set; }
         public string Nombre { get; set; } = null!;
