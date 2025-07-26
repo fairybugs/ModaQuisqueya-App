@@ -1,4 +1,3 @@
-﻿using ModaQuisqueya.Domain.Entities;
 
 namespace ModaQuisqueya.Domain.Entities
 {

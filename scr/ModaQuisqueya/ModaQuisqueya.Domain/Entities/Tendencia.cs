@@ -6,7 +6,7 @@ namespace ModaQuisqueya.Domain.Entities
     {
         public int Id { get; set; }
         public string Nombre { get; set; } = null!;
-        public string Descripción { get; set; } = null!;
+        public string Descripcion { get; set; } = null!;
         public string Temporada { get; set; } = null!;
     }
 }
