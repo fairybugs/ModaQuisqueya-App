@@ -23,7 +23,7 @@ namespace ModaQuisqueya.Application.Services
             {
                 Id = tienda.Id,
                 Nombre = tienda.Nombre,
-                Dirección = tienda.Direccion,
+                Direccion = tienda.Direccion,
                 Telefono = tienda.Telefono,
                 SitioWeb = tienda.SitioWeb
             };
@@ -37,7 +37,7 @@ namespace ModaQuisqueya.Application.Services
             {
                 Id = t.Id,
                 Nombre = t.Nombre,
-                Dirección = t.Direccion,
+                Direccion = t.Direccion,
                 Telefono = t.Telefono,
                 SitioWeb = t.SitioWeb
             });
@@ -48,7 +48,7 @@ namespace ModaQuisqueya.Application.Services
             var tienda = new Tienda
             {
                 Nombre = dto.Nombre,
-                Direccion = dto.Dirección,
+                Direccion = dto.Direccion,
                 Telefono = dto.Telefono,
                 SitioWeb = dto.SitioWeb
             };
@@ -62,7 +62,7 @@ namespace ModaQuisqueya.Application.Services
             {
                 Id = dto.Id,
                 Nombre = dto.Nombre,
-                Direccion = dto.Dirección,
+                Direccion = dto.Direccion,
                 Telefono = dto.Telefono,
                 SitioWeb = dto.SitioWeb
             };

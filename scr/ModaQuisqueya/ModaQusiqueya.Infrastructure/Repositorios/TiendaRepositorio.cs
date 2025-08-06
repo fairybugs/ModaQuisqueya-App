@@ -1,11 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ModaQuisqueya.Api.Data;
 using ModaQuisqueya.Domain.Entities;
+using ModaQuisqueya.Infrastructure.Contexto;
 using ModaQuisqueya.Infrastructure.Interfaces;
-using ModaQuisqueya.Infrastructure.Modelos;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ModaQuisqueya.Infrastructure.Repositorios
 {
@@ -18,61 +14,26 @@ namespace ModaQuisqueya.Infrastructure.Repositorios
             _context = context;
         }
 
-        public async Task<List<TiendaModel>> ObtenerTodosAsync()
+        public async Task<Tienda?> ObtenerPorIdAsync(int id)
         {
-            var tiendas = await _context.Tiendas.ToListAsync();
-            return tiendas.Select(t => new TiendaModel
-            {
-                Id = t.Id,
-                Nombre = t.Nombre,
-                Dirección = t.Dirección,
-                Teléfono = t.Teléfono,
-                SitioWeb = t.SitioWeb
-            }).ToList();
+            return await _context.Tiendas.FindAsync(id);
         }
 
-        public async Task<TiendaModel?> ObtenerPorIdAsync(int id)
+        public async Task<IEnumerable<Tienda>> ObtenerTodasAsync()
         {
-            var tienda = await _context.Tiendas.FindAsync(id);
-            if (tienda == null) return null;
-
-            return new TiendaModel
-            {
-                Id = tienda.Id,
-                Nombre = tienda.Nombre,
-                Dirección = tienda.Dirección,
-                Teléfono = tienda.Teléfono,
-                SitioWeb = tienda.SitioWeb
-            };
+            return await _context.Tiendas.ToListAsync();
         }
 
-        public async Task CrearAsync(TiendaModel tiendaModel)
+        public async Task AgregarAsync(Tienda tienda)
         {
-            var tienda = new Tienda
-            {
-                Nombre = tiendaModel.Nombre,
-                Dirección = tiendaModel.Dirección,
-                Teléfono = tiendaModel.Teléfono,
-                SitioWeb = tiendaModel.SitioWeb
-            };
-
-            _context.Tiendas.Add(tienda);
+            await _context.Tiendas.AddAsync(tienda);
             await _context.SaveChangesAsync();
         }
 
-        public async Task ActualizarAsync(TiendaModel tiendaModel)
+        public async Task ActualizarAsync(Tienda tienda)
         {
-            var tienda = await _context.Tiendas.FindAsync(tiendaModel.Id);
-            if (tienda != null)
-            {
-                tienda.Nombre = tiendaModel.Nombre;
-                tienda.Dirección = tiendaModel.Dirección;
-                tienda.Teléfono = tiendaModel.Teléfono;
-                tienda.SitioWeb = tiendaModel.SitioWeb;
-
-                _context.Tiendas.Update(tienda);
-                await _context.SaveChangesAsync();
-            }
+            _context.Tiendas.Update(tienda);
+            await _context.SaveChangesAsync();
         }
 
         public async Task EliminarAsync(int id)
@@ -86,4 +47,3 @@ namespace ModaQuisqueya.Infrastructure.Repositorios
         }
     }
 }
-

@@ -1,6 +1,7 @@
 ﻿using ModaQuisqueya.Application.Contract;
 using ModaQuisqueya.Application.DTOs;
 using ModaQuisqueya.Domain.Entities;
+using ModaQuisqueya.Infrastructure.Entities;
 using ModaQuisqueya.Infrastructure.Interfaces;
 using System.Collections.Generic;
 using System.Linq;

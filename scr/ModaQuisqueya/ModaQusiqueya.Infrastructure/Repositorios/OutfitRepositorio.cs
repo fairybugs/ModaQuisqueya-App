@@ -1,12 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ModaQuisqueya.Api.Data;
 using ModaQuisqueya.Domain.Entities;
+using ModaQuisqueya.Infrastructure.Contexto;
 using ModaQuisqueya.Infrastructure.Entities;
 using ModaQuisqueya.Infrastructure.Interfaces;
-using ModaQuisqueya.Infrastructure.Modelos;
-using ModaQusiqueya.Infrastructure.Modelos;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ModaQuisqueya.Infrastructure.Repositorios
@@ -20,57 +17,26 @@ namespace ModaQuisqueya.Infrastructure.Repositorios
             _context = context;
         }
 
-        public async Task<List<OutfitModel>> ObtenerTodosAsync()
+        public async Task<Outfit?> ObtenerPorIdAsync(int id)
         {
-            var outfits = await _context.Outfits.ToListAsync();
-            return outfits.Select(o => new OutfitModel
-            {
-                Id = o.Id,
-                Nombre = o.Nombre,
-                Descripción = o.Descripción,
-                ImagenUrl = o.ImagenUrl
-            }).ToList();
+            return await _context.Outfits.FindAsync(id);
         }
 
-        public async Task<OutfitModel?> ObtenerPorIdAsync(int id)
+        public async Task<IEnumerable<Outfit>> ObtenerTodosAsync()
         {
-            var outfit = await _context.Outfits.FindAsync(id);
-            if (outfit == null) return null;
-
-            return new OutfitModel
-            {
-                Id = outfit.Id,
-                Nombre = outfit.Nombre,
-                Descripción = outfit.Descripción,
-                ImagenUrl = outfit.ImagenUrl
-            };
+            return await _context.Outfits.ToListAsync();
         }
 
-        public async Task CrearAsync(OutfitModel outfitModel)
+        public async Task AgregarAsync(Outfit outfit)
         {
-            var outfit = new Outfit
-            {
-                Nombre = outfitModel.Nombre,
-                Descripción = outfitModel.Descripción,
-                ImagenUrl = outfitModel.ImagenUrl
-            };
-
-            _context.Outfits.Add(outfit);
+            await _context.Outfits.AddAsync(outfit);
             await _context.SaveChangesAsync();
         }
 
-        public async Task ActualizarAsync(OutfitModel outfitModel)
+        public async Task ActualizarAsync(Outfit outfit)
         {
-            var outfit = await _context.Outfits.FindAsync(outfitModel.Id);
-            if (outfit != null)
-            {
-                outfit.Nombre = outfitModel.Nombre;
-                outfit.Descripción = outfitModel.Descripción;
-                outfit.ImagenUrl = outfitModel.ImagenUrl;
-
-                _context.Outfits.Update(outfit);
-                await _context.SaveChangesAsync();
-            }
+            _context.Outfits.Update(outfit);
+            await _context.SaveChangesAsync();
         }
 
         public async Task EliminarAsync(int id)
