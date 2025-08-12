@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using ModaQuisqueya.Application.Contract;
 using ModaQuisqueya.Application.Services;
 using ModaQuisqueya.Infrastructure.Contexto;
@@ -9,6 +10,20 @@ using ModaQuisqueya.Infrastructure.UnitOfWork;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("http://127.0.0.1:5500", "http://localhost:7136")
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+                      });
+});
+
 
 builder.Services.AddDbContext<ModaQuisqueyaDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -40,6 +55,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthorization();
 
