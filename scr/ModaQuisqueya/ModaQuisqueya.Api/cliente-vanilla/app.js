@@ -1,4 +1,4 @@
-// Configuración de la API
+
 const API_BASE_URL = 'https://localhost:7136/api';
 
 // Estado global
@@ -21,7 +21,7 @@ function setupEventListeners() {
 }
 
 // Cambiar tabs
-function showTab(entity) {
+function showTab(event, entity) {
     // Remover active de todos los tabs y botones
     document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -315,7 +315,7 @@ function collectFormData(entity) {
     }
 }
 
-// Obtener endpoint de la API
+// Endpoint de la API
 function getEndpoint(entity) {
     const endpoints = {
         'diseñadores': '/Diseñadores',
@@ -358,7 +358,7 @@ function populateForm(entity, item) {
     switch(entity) {
         case 'diseñadores':
             document.getElementById('diseñador-id').value = item.id;
-            document.getElementById('diseñador-nombre').value = item.nombre; // CORREGIDO: eliminé + item.id
+            document.getElementById('diseñador-nombre').value = item.nombre;
             document.getElementById('diseñador-especialidad').value = item.especialidad;
             document.getElementById('diseñador-biografia').value = item.biografia;
             document.getElementById('diseñador-foto').value = item.fotoUrl;
