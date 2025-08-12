@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ModaQuisqueya.Domain.Entities;
-using ModaQuisqueya.Infrastructure.Entities;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 

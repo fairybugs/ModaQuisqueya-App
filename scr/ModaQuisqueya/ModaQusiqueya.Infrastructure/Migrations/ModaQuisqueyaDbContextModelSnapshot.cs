@@ -29,7 +29,7 @@ namespace ModaQuisqueya.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Biografía")
+                    b.Property<string>("Biografia")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -50,6 +50,31 @@ namespace ModaQuisqueya.Infrastructure.Migrations
                     b.ToTable("Diseñadores");
                 });
 
+            modelBuilder.Entity("ModaQuisqueya.Domain.Entities.Outfit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImagenUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Outfits");
+                });
+
             modelBuilder.Entity("ModaQuisqueya.Domain.Entities.Tendencia", b =>
                 {
                     b.Property<int>("Id")
@@ -58,7 +83,7 @@ namespace ModaQuisqueya.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Descripción")
+                    b.Property<string>("Descripcion")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -83,7 +108,7 @@ namespace ModaQuisqueya.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Dirección")
+                    b.Property<string>("Direccion")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -95,38 +120,13 @@ namespace ModaQuisqueya.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Teléfono")
+                    b.Property<string>("Telefono")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Tiendas");
-                });
-
-            modelBuilder.Entity("ModaQuisqueya.Infrastructure.Modelos.Outfit", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Descripción")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImagenUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Outfits");
                 });
 #pragma warning restore 612, 618
         }

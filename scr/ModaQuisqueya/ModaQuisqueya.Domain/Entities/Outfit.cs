@@ -1,6 +1,6 @@
-using ModaQuisqueya.Domain.Entities;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ModaQuisqueya.Infrastructure.Entities
+namespace ModaQuisqueya.Domain.Entities
 {
     public class Outfit
     {
@@ -10,4 +10,3 @@ namespace ModaQuisqueya.Infrastructure.Entities
         public string ImagenUrl { get; set; } = null!;
     }
 }
-
