@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moda Quisqueya</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Moda Quisqueya</h1>
+            <p>Catalogo de Moda Dominicana</p>
+        </header>
+
+        <!-- Tab Navigation -->
+        <nav class="tab-nav">
+            <button class="tab-btn active" onclick="showTab(event, 'diseñadores')">
+                <span class="tab-icon"></span>
+                Diseñadores
+            </button>
+            <button class="tab-btn" onclick="showTab(event, 'outfits')">
+                <span class="tab-icon"></span>
+                Outfits
+            </button>
+            <button class="tab-btn" onclick="showTab(event, 'tendencias')">
+                <span class="tab-icon"></span>
+                Tendencias
+            </button>
+            <button class="tab-btn" onclick="showTab(event, 'tiendas')">
+                <span class="tab-icon"></span>
+                Tiendas
+            </button>
+        </nav>
+
+        <!-- Loading Indicator -->
+        <div id="loading" class="loading hidden">
+            <div class="spinner"></div>
+            <p>Cargando...</p>
+        </div>
+
+        <!-- Error Message -->
+        <div id="error-message" class="error-message hidden">
+            <span class="error-text"></span>
+            <button onclick="hideError()" class="close-error">✕</button>
+        </div>
+
+        <!-- Success Message -->
+        <div id="success-message" class="success-message hidden">
+            <span class="success-text"></span>
+            <button onclick="hideSuccess()" class="close-success">✕</button>
+        </div>
+
+        <!-- Diseñadores Tab -->
+        <div id="diseñadores-tab" class="tab-content active">
+            <div class="section">
+                <h2>Gestión de Diseñadores</h2>
+                <button class="btn-primary" onclick="showForm('diseñadores')">Agregar Diseñador</button>
+                
+                <div id="diseñadores-form" class="form-container hidden">
+                    <form id="diseñador-form">
+                        <input type="hidden" id="diseñador-id">
+                        <div class="form-group">
+                            <label for="diseñador-nombre">Nombre:</label>
+                            <input type="text" id="diseñador-nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="diseñador-especialidad">Especialidad:</label>
+                            <input type="text" id="diseñador-especialidad" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="diseñador-biografia">Biografía:</label>
+                            <textarea id="diseñador-biografia" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="diseñador-foto">URL de Foto:</label>
+                            <input type="url" id="diseñador-foto" required>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-success">Guardar</button>
+                            <button type="button" class="btn-secondary" onclick="hideForm('diseñadores')">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="table-container">
+                    <table id="diseñadores-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Especialidad</th>
+                                <th>Biografía</th>
+                                <th>Foto</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="diseñadores-tbody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Outfits Tab -->
+        <div id="outfits-tab" class="tab-content">
+            <div class="section">
+                <h2>Gestión de Outfits</h2>
+                <button class="btn-primary" onclick="showForm('outfits')">Agregar Outfit</button>
+                
+                <div id="outfits-form" class="form-container hidden">
+                    <form id="outfit-form">
+                        <input type="hidden" id="outfit-id">
+                        <div class="form-group">
+                            <label for="outfit-nombre">Nombre:</label>
+                            <input type="text" id="outfit-nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="outfit-descripcion">Descripción:</label>
+                            <textarea id="outfit-descripcion" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="outfit-imagen">URL de Imagen:</label>
+                            <input type="url" id="outfit-imagen" required>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-success">Guardar</button>
+                            <button type="button" class="btn-secondary" onclick="hideForm('outfits')">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="table-container">
+                    <table id="outfits-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Imagen</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="outfits-tbody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tendencias Tab -->
+        <div id="tendencias-tab" class="tab-content">
+            <div class="section">
+                <h2>Gestión de Tendencias</h2>
+                <button class="btn-primary" onclick="showForm('tendencias')">Agregar Tendencia</button>
+                
+                <div id="tendencias-form" class="form-container hidden">
+                    <form id="tendencia-form">
+                        <input type="hidden" id="tendencia-id">
+                        <div class="form-group">
+                            <label for="tendencia-nombre">Nombre:</label>
+                            <input type="text" id="tendencia-nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tendencia-descripcion">Descripción:</label>
+                            <textarea id="tendencia-descripcion" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="tendencia-temporada">Temporada:</label>
+                            <select id="tendencia-temporada" required>
+                                <option value="">Seleccionar temporada</option>
+                                <option value="Primavera">Primavera</option>
+                                <option value="Verano">Verano</option>
+                                <option value="Otoño">Otoño</option>
+                                <option value="Invierno">Invierno</option>
+                            </select>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-success">Guardar</button>
+                            <button type="button" class="btn-secondary" onclick="hideForm('tendencias')">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="table-container">
+                    <table id="tendencias-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Temporada</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tendencias-tbody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tiendas Tab -->
+        <div id="tiendas-tab" class="tab-content">
+            <div class="section">
+                <h2>Gestión de Tiendas</h2>
+                <button class="btn-primary" onclick="showForm('tiendas')">Agregar Tienda</button>
+                
+                <div id="tiendas-form" class="form-container hidden">
+                    <form id="tienda-form">
+                        <input type="hidden" id="tienda-id">
+                        <div class="form-group">
+                            <label for="tienda-nombre">Nombre:</label>
+                            <input type="text" id="tienda-nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tienda-direccion">Dirección:</label>
+                            <input type="text" id="tienda-direccion" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tienda-telefono">Teléfono:</label>
+                            <input type="tel" id="tienda-telefono" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tienda-sitio">Sitio Web:</label>
+                            <input type="url" id="tienda-sitio" required>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-success">Guardar</button>
+                            <button type="button" class="btn-secondary" onclick="hideForm('tiendas')">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="table-container">
+                    <table id="tiendas-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Dirección</th>
+                                <th>Teléfono</th>
+                                <th>Sitio Web</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tiendas-tbody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

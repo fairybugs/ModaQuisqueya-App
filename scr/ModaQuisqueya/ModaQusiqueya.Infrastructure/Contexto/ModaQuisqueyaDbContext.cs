@@ -3,7 +3,7 @@ using ModaQuisqueya.Domain.Entities;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ModaQuisqueya.Api.Data
+namespace ModaQuisqueya.Infrastructure.Contexto
 {
     public class ModaQuisqueyaDbContext : DbContext
     {

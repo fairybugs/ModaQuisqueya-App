@@ -1,11 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ModaQuisqueya.Api.Data;
 using ModaQuisqueya.Domain.Entities;
+using ModaQuisqueya.Infrastructure.Contexto;
 using ModaQuisqueya.Infrastructure.Interfaces;
-using ModaQuisqueya.Infrastructure.Modelos;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ModaQuisqueya.Infrastructure.Repositorios
 {
@@ -18,62 +14,26 @@ namespace ModaQuisqueya.Infrastructure.Repositorios
             _context = context;
         }
 
-        public async Task<List<DiseñadorModel>> ObtenerTodosAsync()
+        public async Task<Diseñador?> ObtenerPorIdAsync(int id)
         {
-            var diseñadores = await _context.Diseñadores.ToListAsync();
-            return diseñadores.Select(d => new DiseñadorModel
-            {
-                Id = d.Id,
-                Nombre = d.Nombre,
-                Especialidad = d.Especialidad,
-                Biografia = d.Biografia,
-                FotoUrl = d.FotoUrl,
-            }).ToList();
+            return await _context.Diseñadores.FindAsync(id);
         }
 
-        public async Task<DiseñadorModel?> ObtenerPorIdAsync(int id)
+        public async Task<IEnumerable<Diseñador>> ObtenerTodosAsync()
         {
-            var diseñador = await _context.Diseñadores.FindAsync(id);
-            if (diseñador == null)
-                return null;
-
-            return new DiseñadorModel
-            {
-                Id = diseñador.Id,
-                Nombre = diseñador.Nombre,
-                Especialidad = diseñador.Especialidad,
-                Biografia = diseñador.Biografia,
-                FotoUrl = diseñador.FotoUrl
-            };
+            return await _context.Diseñadores.ToListAsync();
         }
 
-        public async Task CrearAsync(DiseñadorModel diseñadorModel)
+        public async Task AgregarAsync(Diseñador diseñador)
         {
-            var diseñador = new Diseñador
-            {
-                Nombre = diseñadorModel.Nombre,
-                Especialidad = diseñadorModel.Especialidad,
-                Biografia = diseñadorModel.Biografia,
-                FotoUrl = diseñadorModel.FotoUrl
-            };
-
-            _context.Diseñadores.Add(diseñador);
+            await _context.Diseñadores.AddAsync(diseñador);
             await _context.SaveChangesAsync();
         }
 
-        public async Task ActualizarAsync(DiseñadorModel diseñadorModel)
+        public async Task ActualizarAsync(Diseñador diseñador)
         {
-            var diseñador = await _context.Diseñadores.FindAsync(diseñadorModel.Id);
-            if (diseñador != null)
-            {
-                diseñador.Nombre = diseñadorModel.Nombre;
-                diseñador.Especialidad = diseñadorModel.Especialidad;
-                diseñador.Biografia = diseñadorModel.Biografia;
-                diseñador.FotoUrl = diseñadorModel.FotoUrl;
-
-                _context.Diseñadores.Update(diseñador);
-                await _context.SaveChangesAsync();
-            }
+            _context.Diseñadores.Update(diseñador);
+            await _context.SaveChangesAsync();
         }
 
         public async Task EliminarAsync(int id)

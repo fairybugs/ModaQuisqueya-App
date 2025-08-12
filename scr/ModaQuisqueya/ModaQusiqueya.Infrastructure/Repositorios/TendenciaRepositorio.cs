@@ -1,11 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ModaQuisqueya.Api.Data;
 using ModaQuisqueya.Domain.Entities;
+using ModaQuisqueya.Infrastructure.Contexto;
 using ModaQuisqueya.Infrastructure.Interfaces;
-using ModaQuisqueya.Infrastructure.Modelos;
-using ModaQusiqueya.Infrastructure.Modelos;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ModaQuisqueya.Infrastructure.Repositorios
@@ -19,57 +16,26 @@ namespace ModaQuisqueya.Infrastructure.Repositorios
             _context = context;
         }
 
-        public async Task<List<TendenciaModel>> ObtenerTodosAsync()
+        public async Task<Tendencia?> ObtenerPorIdAsync(int id)
         {
-            var tendencias = await _context.Tendencias.ToListAsync();
-            return tendencias.Select(t => new TendenciaModel
-            {
-                Id = t.Id,
-                Nombre = t.Nombre,
-                Descripcion = t.Descripcion,
-                Temporada = t.Temporada
-            }).ToList();
+            return await _context.Tendencias.FindAsync(id);
         }
 
-        public async Task<TendenciaModel?> ObtenerPorIdAsync(int id)
+        public async Task<IEnumerable<Tendencia>> ObtenerTodasAsync()
         {
-            var tendencia = await _context.Tendencias.FindAsync(id);
-            if (tendencia == null) return null;
-
-            return new TendenciaModel
-            {
-                Id = tendencia.Id,
-                Nombre = tendencia.Nombre,
-                Descripcion = tendencia.Descripcion,
-                Temporada = tendencia.Temporada
-            };
+            return await _context.Tendencias.ToListAsync();
         }
 
-        public async Task CrearAsync(TendenciaModel tendenciaModel)
+        public async Task AgregarAsync(Tendencia tendencia)
         {
-            var tendencia = new Tendencia
-            {
-                Nombre = tendenciaModel.Nombre,
-                Descripcion = tendenciaModel.Descripcion,
-                Temporada = tendenciaModel.Temporada
-            };
-
-            _context.Tendencias.Add(tendencia);
+            await _context.Tendencias.AddAsync(tendencia);
             await _context.SaveChangesAsync();
         }
 
-        public async Task ActualizarAsync(TendenciaModel tendenciaModel)
+        public async Task ActualizarAsync(Tendencia tendencia)
         {
-            var tendencia = await _context.Tendencias.FindAsync(tendenciaModel.Id);
-            if (tendencia != null)
-            {
-                tendencia.Nombre = tendenciaModel.Nombre;
-                tendencia.Descripcion = tendenciaModel.Descripcion;
-                tendencia.Temporada = tendenciaModel.Temporada;
-
-                _context.Tendencias.Update(tendencia);
-                await _context.SaveChangesAsync();
-            }
+            _context.Tendencias.Update(tendencia);
+            await _context.SaveChangesAsync();
         }
 
         public async Task EliminarAsync(int id)
@@ -83,4 +49,3 @@ namespace ModaQuisqueya.Infrastructure.Repositorios
         }
     }
 }
-

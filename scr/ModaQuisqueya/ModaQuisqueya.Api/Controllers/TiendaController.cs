@@ -1,56 +1,63 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ModaQuisqueya.Infrastructure.Interfaces;
-using ModaQuisqueya.Infrastructure.Modelos;
+using ModaQuisqueya.Application.Contract;
+using ModaQuisqueya.Application.DTOs;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ModaQuisqueya.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class TiendaController : ControllerBase
+    public class TiendasController : ControllerBase
     {
-        private readonly ITiendaRepositorio _repositorio;
+        private readonly ITiendaService _tiendaService;
 
-        public TiendaController(ITiendaRepositorio repositorio)
+        public TiendasController(ITiendaService tiendaService)
         {
-            _repositorio = repositorio;
+            _tiendaService = tiendaService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<TiendaModel>>> GetAll()
+        public async Task<ActionResult<IEnumerable<TiendaDto>>> GetTodas()
         {
-            var tiendas = await _repositorio.ObtenerTodosAsync();
+            var tiendas = await _tiendaService.ObtenerTodasAsync();
             return Ok(tiendas);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<TiendaModel>> GetById(int id)
+        public async Task<ActionResult<TiendaDto>> GetPorId(int id)
         {
-            var tienda = await _repositorio.ObtenerPorIdAsync(id);
+            var tienda = await _tiendaService.ObtenerPorIdAsync(id);
             if (tienda == null) return NotFound();
             return Ok(tienda);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(TiendaModel tienda)
+        public async Task<IActionResult> Agregar([FromBody] TiendaDto dto)
         {
-            await _repositorio.CrearAsync(tienda);
-            return CreatedAtAction(nameof(GetById), new { id = tienda.Id }, tienda);
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            await _tiendaService.AgregarAsync(dto);
+            return CreatedAtAction(nameof(GetPorId), new { id = dto.Id }, dto);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> Update(int id, TiendaModel tienda)
+        public async Task<IActionResult> Actualizar(int id, [FromBody] TiendaDto dto)
         {
-            if (id != tienda.Id) return BadRequest("ID no coincide");
-            await _repositorio.ActualizarAsync(tienda);
+            if (id != dto.Id) return BadRequest("El ID de la URL no coincide con el del cuerpo.");
+
+            await _tiendaService.ActualizarAsync(dto);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<IActionResult> Eliminar(int id)
         {
-            await _repositorio.EliminarAsync(id);
+            var tienda = await _tiendaService.ObtenerPorIdAsync(id);
+            if (tienda == null) return NotFound();
+
+            await _tiendaService.EliminarAsync(id);
             return NoContent();
         }
     }
 }
-

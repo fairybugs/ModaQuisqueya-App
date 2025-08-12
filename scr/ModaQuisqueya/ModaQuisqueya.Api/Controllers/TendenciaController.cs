@@ -1,55 +1,62 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ModaQuisqueya.Infrastructure.Interfaces;
-using ModaQuisqueya.Infrastructure.Modelos;
-using ModaQusiqueya.Infrastructure.Modelos;
+using ModaQuisqueya.Application.Contract;
+using ModaQuisqueya.Application.DTOs;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ModaQuisqueya.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class TendenciaController : ControllerBase
+    public class TendenciasController : ControllerBase
     {
-        private readonly ITendenciaRepositorio _repositorio;
+        private readonly ITendenciaService _tendenciaService;
 
-        public TendenciaController(ITendenciaRepositorio repositorio)
+        public TendenciasController(ITendenciaService tendenciaService)
         {
-            _repositorio = repositorio;
+            _tendenciaService = tendenciaService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<TendenciaModel>>> GetAll()
+        public async Task<ActionResult<IEnumerable<TendenciaDto>>> GetTodas()
         {
-            var tendencias = await _repositorio.ObtenerTodosAsync();
+            var tendencias = await _tendenciaService.ObtenerTodasAsync();
             return Ok(tendencias);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<TendenciaModel>> GetById(int id)
+        public async Task<ActionResult<TendenciaDto>> GetPorId(int id)
         {
-            var tendencia = await _repositorio.ObtenerPorIdAsync(id);
+            var tendencia = await _tendenciaService.ObtenerPorIdAsync(id);
             if (tendencia == null) return NotFound();
             return Ok(tendencia);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(TendenciaModel tendencia)
+        public async Task<IActionResult> Agregar([FromBody] TendenciaDto dto)
         {
-            await _repositorio.CrearAsync(tendencia);
-            return CreatedAtAction(nameof(GetById), new { id = tendencia.Id }, tendencia);
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            await _tendenciaService.AgregarAsync(dto);
+            return CreatedAtAction(nameof(GetPorId), new { id = dto.Id }, dto);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> Update(int id, TendenciaModel tendencia)
+        public async Task<IActionResult> Actualizar(int id, [FromBody] TendenciaDto dto)
         {
-            if (id != tendencia.Id) return BadRequest("ID no coincide");
-            await _repositorio.ActualizarAsync(tendencia);
+            if (id != dto.Id) return BadRequest("El ID de la URL no coincide con el del cuerpo.");
+
+            await _tendenciaService.ActualizarAsync(dto);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<IActionResult> Eliminar(int id)
         {
-            await _repositorio.EliminarAsync(id);
+            var existente = await _tendenciaService.ObtenerPorIdAsync(id);
+            if (existente == null) return NotFound();
+
+            await _tendenciaService.EliminarAsync(id);
             return NoContent();
         }
     }
