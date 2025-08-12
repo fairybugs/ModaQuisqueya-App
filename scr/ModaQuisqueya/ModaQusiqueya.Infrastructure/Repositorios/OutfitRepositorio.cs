@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ModaQuisqueya.Domain.Entities;
 using ModaQuisqueya.Infrastructure.Contexto;
-using ModaQuisqueya.Infrastructure.Entities;
 using ModaQuisqueya.Infrastructure.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
